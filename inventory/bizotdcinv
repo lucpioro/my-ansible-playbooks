@@ -32,6 +32,18 @@ ocpnode2.bizotdc.tech
 azocpinfra1.bizotdc.tech
 azocpnode1.bizotdc.tech
 
+[allonpremnodes]
+ocpmaster1.bizotdc.tech
+ocpmaster2.bizotdc.tech
+ocpmaster3.bizotdc.tech
+ocpinfra1.bizotdc.tech
+ocpnode1.bizotdc.tech
+ocpnode2.bizotdc.tech
+ocplb.bizotdc.tech
+ocpsto1.bizotdc.tech
+ocpsto2.bizotdc.tech
+ocpsto3.bizotdc.tech
+
 [allnodes]
 ocpmaster1.bizotdc.tech
 ocpmaster2.bizotdc.tech
