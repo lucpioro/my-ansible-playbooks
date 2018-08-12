@@ -209,5 +209,5 @@ ocputils.bizotdc.tech openshift_hostname=ocputils.bizotdc.tech
 # NEW-NODES
 #######################################################
 [new_nodes]
-azocpnode1.bizotdc.tech openshift_hostname=azocpnode1.bizotdc.tech openshift_ip=10.0.0.4 openshift_node_labels="{'region':'cloudapps'}"
-azocpinfra1.bizotdc.tech openshift_hostname=azocpinfra1.bizotdc.tech openshift_ip=10.0.0.5 openshift_node_labels="{'region':'cloudapps'}"
+azocpnode1.bizotdc.tech openshift_node_labels="{'region':'cloudapps'}"
+azocpinfra1.bizotdc.tech openshift_node_labels="{'region':'cloudapps'}"
