@@ -1,5 +1,5 @@
 ---
-- name: copy sudo file
+- name: copy sudo file + ssh key
   gather_facts: True
   hosts: allnodes
   become: no
@@ -11,8 +11,8 @@
         owner: root
         group: root
         mode: 0600
-- name: Set authorized key taken from file
-  authorized_key:
-    user: ocpadmin
-    state: present
-    key: "{{ lookup('file', '../files/ssh/key') }}"
+    - name: Set authorized key taken from file
+      authorized_key:
+        user: ocpadmin
+        state: present
+        key: "{{ lookup('file', '../files/ssh/key') }}"
