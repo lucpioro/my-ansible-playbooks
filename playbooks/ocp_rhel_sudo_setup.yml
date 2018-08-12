@@ -6,7 +6,7 @@
   tasks:
     - name: Copy sudo file
       copy:
-        src: ../files/sudo/ocpsido
+        src: ../files/sudo/ocpsudo
         dest: /etc/sudoers.d/ocpsudo
         owner: root
         group: root
