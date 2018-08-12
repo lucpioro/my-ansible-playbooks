@@ -1,0 +1,10 @@
+---
+- hosts: allnodes
+  tasks:
+   - name: Copy docker-storage-setup file
+     copy:
+       src: ./docker/docker-storage-setup
+       dest: /etc/sysconfig/docker-storage-setup
+       owner: root
+       group: root
+       mode: 0644
