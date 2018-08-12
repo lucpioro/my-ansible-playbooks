@@ -1,3 +1,8 @@
+ansible_connection=ssh
+ansible_port=22
+ansible_user=ocpadmin
+ansible_become=true
+
 [masternodes]
 ocpmaster1.bizotdc.tech
 ocpmaster2.bizotdc.tech
