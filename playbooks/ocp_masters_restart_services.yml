@@ -1,0 +1,16 @@
+---
+# file: ocp_restart.yml
+- hosts: masternodes
+  tasks:
+    - name: Restart atomic-openshift-master-api.service
+      service:
+       name: atomic-openshift-master-api.service
+       state: restarted
+    - name: Restart atomic-openshift-master-controllers.service
+      service:
+       name: atomic-openshift-master-controllers.service
+       state: restarted
+    - name: Restart atomic-openshift-node.service
+      service:
+       name: atomic-openshift-node.service
+       state: restarted
