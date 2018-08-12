@@ -1,5 +1,5 @@
-#[localhost]
-#localhost ansible_connection=local
+[localhost]
+localhost ansible_connection=local
 
 # Create an OSEv3 group that contains the masters, nodes, and etcd groups
 [OSEv3:children]
