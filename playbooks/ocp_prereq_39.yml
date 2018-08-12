@@ -1,0 +1,49 @@
+---
+# file: ocp_prereq.yml
+
+# Playbook to prep OpenShift Enterprise hosts for installation. Run this before the openshift-ansible byo playbook.
+- hosts: test
+  tasks:
+  - name: Install required packages
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - bind-utils
+      - bash-completion
+      - bridge-utils
+      - kexec-tools
+      - git
+      - iptables-services
+      - net-tools
+      - psacct
+      - sos
+      - wget
+
+  - name: Install Docker
+    yum:
+      name: "docker-1.13.1"
+      state: present
+
+  - name: Create Docker Storage configuration
+    copy:
+     content: VG=docker-vg
+     dest: /etc/sysconfig/docker-storage-setup
+     owner: root
+     group: root
+     mode: 0644
+
+  - name: Create VG docker-vg
+    command: vgcreate docker-vg /dev/sda3
+
+  - name: Configure Docker Storage
+    command: docker-storage-setup
+
+  - name: Create Logical Volume
+    command: lvcreate -l 100%FREE -n data /dev/docker-vg
+
+  - name: Start Docker service
+    service:
+       name: docker
+       state: started
+       enabled: yes
