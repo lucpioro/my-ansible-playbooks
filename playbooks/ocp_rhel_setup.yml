@@ -11,3 +11,8 @@
         owner: root
         group: root
         mode: 0600
+- name: Set authorized key taken from file
+  authorized_key:
+    user: ocpadmin
+    state: present
+    key: "{{ lookup('file', '../files/ssh/key') }}"
