@@ -1,0 +1,17 @@
+---
+# file: ocp_clear.yml
+
+- hosts: allnodes
+  tasks:
+  - name: stop all docker containers
+    shell: docker stop $(docker ps -a -q)
+    ignore_errors: true
+  - name: remove all docker containers
+    shell: docker rm $(docker ps -a -q)
+    ignore_errors: true
+  - name: remove all docker images
+    shell: docker rmi $(docker images -q)
+  - name: clean unused docker containers
+    shell: docker rm -v $(docker ps -a -q -f status=exited)
+  - name: clean unused docker images
+    shell: docker rmi $(docker images -f “dangling=true” -q)
