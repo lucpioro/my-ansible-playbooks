@@ -1,0 +1,13 @@
+---
+- name: copy sudo file
+  gather_facts: True
+  hosts: allnodes
+  become: no
+  tasks:
+    - name: Copy sudo file
+      copy:
+        src: ../files/sudo/ocpsido
+        dest: /etc/sudoers.d/ocpsudo
+        owner: root
+        group: root
+        mode: 0600
