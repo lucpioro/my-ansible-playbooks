@@ -1,0 +1,32 @@
+---
+# file: ocp_stop.yml
+
+- hosts: ocpnodes
+  tasks:
+    - name: stop atomic-openshift-node.service
+      service:
+       name: atomic-openshift-node.service
+       state: stopped
+
+- hosts: masternodes
+  tasks:
+    - name: stop atomic-openshift-master-api.service
+      service:
+       name: atomic-openshift-master-api.service
+       state: stopped
+    - name: stop atomic-openshift-master-controllers.service
+      service:
+       name: atomic-openshift-master-controllers.service
+       state: stopped
+
+- hosts: ocpnodes
+  tasks:
+    - name: stop docker.service
+      service:
+       name: docker.service
+       state: stopped
+
+- hosts: ocpnodes
+  tasks:
+    - name: PowerOff VMs
+      command: /usr/bin/systemctl poweroff
