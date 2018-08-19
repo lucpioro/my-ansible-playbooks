@@ -104,6 +104,7 @@ openshift_hosted_registry_storage_volume_size=10Gi
 # LOGGING
 #######################################################
 openshift_logging_install_logging=true
+openshift_logging_image_version=v3.9.40
 openshift_logging_purge_logging=false
 openshift_logging_use_ops=false
 openshift_logging_es_cluster_size=1
@@ -127,6 +128,7 @@ openshift_logging_storage_labels={'storage':'logging'}
 # METRICS
 #######################################################
 openshift_metrics_install_metrics=true
+openshift_metrics_install_version=v3.9.40
 openshift_metrics_hawkular_hostname=hawkular-metrics.apps.bizotdc.tech
 openshift_metrics_hawkular_nodeselector={"region":"infra"}
 openshift_metrics_cassandra_nodeselector={"region":"infra"}
