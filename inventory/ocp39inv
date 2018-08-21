@@ -148,6 +148,12 @@ openshift_metrics_storage_labels={'storage':'metrics'}
 #######################################################
 # PROMETHEUS
 #######################################################
+openshift_hosted_prometheus_deploy=true
+openshift_prometheus_namespace=openshift-metrics
+openshift_prometheus_node_selector={"region":"infra"}
+openshift_prometheus_storage_kind=nfs
+openshift_prometheus_alertmanager_storage_kind=nfs
+openshift_prometheus_alertbuffer_storage_kind=nfs
 
 #######################################################
 ### Configure Storage for Ansible Broker
