@@ -47,7 +47,7 @@ cephnode3.bizotdc.tech
 cephnode[1:3].bizotdc.tech
 
 [osds]
-cephnode[1:3].bizotdc.tech
+cephnode[1:3].bizotdc.tech devices="[ '/dev/vdb' ]"
 
 [rgws]
 cephrgw.bizotdc.tech
