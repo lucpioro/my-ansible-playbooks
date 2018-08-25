@@ -52,6 +52,9 @@ cephnode[1:3].bizotdc.tech devices="[ '/dev/vdb' ]"
 [rgws]
 cephrgw.bizotdc.tech
 
+[mgrs]
+cephnode[1:3].bizotdc.tech
+
 [allonpremnodes]
 ocpmaster1.bizotdc.tech
 ocpmaster2.bizotdc.tech
