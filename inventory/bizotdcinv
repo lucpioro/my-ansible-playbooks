@@ -44,10 +44,14 @@ cephnode2.bizotdc.tech
 cephnode3.bizotdc.tech
 
 [mons]
-cephnode[1:3].bizotdc.tech
+cephnode1.bizotdc.tech
+cephnode2.bizotdc.tech
+cephnode3.bizotdc.tech
 
 [osds]
-cephnode[1:3].bizotdc.tech devices="[ '/dev/vdb' ]"
+cephnode1.bizotdc.tech devices="[ '/dev/vdb' ]"
+cephnode2.bizotdc.tech devices="[ '/dev/vdb' ]"
+cephnode3.bizotdc.tech devices="[ '/dev/vdb' ]"
 
 [rgws]
 cephrgw.bizotdc.tech
