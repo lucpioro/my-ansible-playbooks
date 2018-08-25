@@ -37,6 +37,21 @@ ocpnode2.bizotdc.tech
 azocpinfra1.bizotdc.tech
 azocpnode1.bizotdc.tech
 
+[cephnodes]
+cephrgw.bizotdc.tech
+cephnode1.bizotdc.tech
+cephnode2.bizotdc.tech
+cephnode3.bizotdc.tech
+
+[mons]
+cephnode[1:3].bizotdc.tech
+
+[osds]
+cephnode[1:3].bizotdc.tech
+
+[rgws]
+cephrgw.bizotdc.tech
+
 [allonpremnodes]
 ocpmaster1.bizotdc.tech
 ocpmaster2.bizotdc.tech
