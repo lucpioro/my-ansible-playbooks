@@ -237,10 +237,10 @@ vpngw.bizotdc.tech openshift_node_labels="{'region':'vpn'}"
 # host group for glusterfs
 #######################################################
 [glusterfs]
-ocpsto1.bizotdc.tech glusterfs_ip=192.168.0.131 glusterfs_devices='[ "/dev/xvdb" ]'
-ocpsto2.bizotdc.tech glusterfs_ip=192.168.0.132 glusterfs_devices='[ "/dev/xvdb" ]'
-ocpsto3.bizotdc.tech glusterfs_ip=192.168.0.133 glusterfs_devices='[ "/dev/xvdb" ]'
-ocpsto5.bizotdc.tech glusterfs_ip=192.168.0.135 glusterfs_devices='[ "/dev/xvdb" ]'
+ocpsto1.bizotdc.tech glusterfs_ip=192.168.0.131 glusterfs_devices='[ "/dev/vdb" ]'
+ocpsto2.bizotdc.tech glusterfs_ip=192.168.0.132 glusterfs_devices='[ "/dev/vdb" ]'
+ocpsto3.bizotdc.tech glusterfs_ip=192.168.0.133 glusterfs_devices='[ "/dev/vdb" ]'
+ocpsto5.bizotdc.tech glusterfs_ip=192.168.0.135 glusterfs_devices='[ "/dev/vdb" ]'
 
 #######################################################
 # NFS
