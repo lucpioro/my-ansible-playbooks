@@ -177,6 +177,7 @@ masters
 etcd
 nodes
 lb
+glusterfs
 nfs
 new_nodes
 
@@ -214,6 +215,15 @@ ocpnode1.bizotdc.tech openshift_hostname=ocpnode1.bizotdc.tech openshift_node_la
 ocpnode2.bizotdc.tech openshift_hostname=ocpnode2.bizotdc.tech openshift_node_labels="{'region':'apps'}"
 azocpnode1.bizotdc.tech openshift_node_labels="{'region':'cloudapps'}"
 vpngw.bizotdc.tech openshift_node_labels="{'region':'vpn'}"
+
+#######################################################
+# host group for glusterfs
+#######################################################
+[glusterfs]
+ocpsto1.bizotdc.tech glusterfs_ip=192.168.0.131 glusterfs_devices='[ "/dev/xvdb" ]'
+ocpsto2.bizotdc.tech glusterfs_ip=192.168.0.132 glusterfs_devices='[ "/dev/xvdb" ]'
+ocpsto3.bizotdc.tech glusterfs_ip=192.168.0.133 glusterfs_devices='[ "/dev/xvdb" ]'
+ocpsto5.bizotdc.tech glusterfs_ip=192.168.0.135 glusterfs_devices='[ "/dev/xvdb" ]'
 
 #######################################################
 # NFS
