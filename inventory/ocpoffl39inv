@@ -19,13 +19,15 @@ ansible_become=false
 
 openshift_deployment_type=openshift-enterprise
 debug_level=2
+openshift_release=v3.9
+openshift_pkg_version=-3.9.40
 openshift_image_tag=v3.9.41
 
 # -- External Docker Registry
 
 #openshift_docker_additional_registries=['picnex000.dom101.mapres:8082']
 #openshift_docker_insecure_registries=['picnex000.dom101.mapres:8082']
-#openshift_docker_blocked_registries=docker.io,registry.access.redhat.com
+openshift_docker_blocked_registries=docker.io,registry.access.redhat.com
 #oreg_url=picnex000.dom101.mapres:8082/openshift3/ose-${component}:${version}
 #oreg_auth_user='virtu'
 #oreg_auth_password='password'
@@ -57,12 +59,12 @@ openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 
 # -- Service Catalog configuration
 
 #openshift_service_catalog_image_prefix=picnex000.dom101.mapres:8082/openshift3/
-#openshift_service_catalog_image_version=v3.9.41
+openshift_service_catalog_image_version=v3.9.41
 
 
 # -- Registry Console - Cockpit configuration
 
-openshift_cockpit_deployer_prefix=picnex000.dom101.mapres:8082/openshift3/
+#openshift_cockpit_deployer_prefix=picnex000.dom101.mapres:8082/openshift3/
 openshift_cockpit_deployer_version=v3.9.41
 
 # -- Router configuration
