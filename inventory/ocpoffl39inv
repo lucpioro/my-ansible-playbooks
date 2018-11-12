@@ -1,5 +1,3 @@
-#reduction du nombre de noeuds pour accelerer les tests
-
 [localhost]
 localhost ansible_connection=local
 
