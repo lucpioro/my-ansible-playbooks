@@ -121,9 +121,7 @@ openshift_enable_service_catalog=false
 masters
 nodes
 etcd
-
-#[localhost]
-#localhost ansible_connection=local
+lb
 
 [etcd:children]
 masters
@@ -145,4 +143,5 @@ openshifti1.bizotdc.tech openshift_node_labels="{'region': 'infra'}"
 [nodes-app]
 openshiftn1.bizotdc.tech openshift_node_labels="{'region': 'app'}"
 
-
+[lb]
+openshiftlb.bizotdc.tech
