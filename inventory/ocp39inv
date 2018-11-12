@@ -19,8 +19,10 @@ new_nodes
 #######################################################
 ansible_connection=ssh
 ansible_port=22
-ansible_user=ocpadmin
-ansible_become=true
+ansible_user=root
+#ansible_user=ocpadmin
+ansible_become=false
+#ansible_become=true
 #######################################################
 # -- Installation configuration
 #######################################################
@@ -60,28 +62,29 @@ openshift_hosted_etcd_storage_volume_name=etcdvol
 openshift_hosted_etcd_storage_access_modes=["ReadWriteOnce"]
 openshift_hosted_etcd_storage_volume_size=1G
 openshift_hosted_etcd_storage_labels={'storage': 'etcd'}
+
 #######################################################
 # CNS CRS GLUSTERFS
 #######################################################
-#openshift_storage_glusterfs_image=registry.access.redhat.com/rhgs3/rhgs-server-rhel7:3.4.0-7
-#openshift_storage_glusterfs_block_image=registry.access.redhat.com/rhgs3/rhgs-gluster-block-prov-rhel7:3.4.0-6
-#openshift_storage_glusterfs_heketi_image=registry.access.redhat.com/rhgs3/rhgs-volmanager-rhel7:3.4.0-9
-
 openshift_storage_glusterfs_namespace=app-storage
 openshift_storage_glusterfs_storageclass=true
 openshift_storage_glusterfs_storageclass_default=false
 openshift_storage_glusterfs_block_deploy=true
 openshift_storage_glusterfs_block_host_vol_create=true
-openshift_storage_glusterfs_block_host_vol_size=100
+openshift_storage_glusterfs_block_host_vol_size=10
 openshift_storage_glusterfs_block_storageclass=true
 openshift_storage_glusterfs_block_storageclass_default=false
-openshift_storage_glusterfs_is_native=false
+openshift_storage_glusterfs_is_native=true
 openshift_storage_glusterfs_heketi_is_native=true
-openshift_storage_glusterfs_heketi_executor=ssh
-openshift_storage_glusterfs_heketi_ssh_port=22
-openshift_storage_glusterfs_heketi_ssh_user=root
-openshift_storage_glusterfs_heketi_ssh_sudo=false
-openshift_storage_glusterfs_heketi_ssh_keyfile="/tmp/id_rsa"
+
+#openshift_storage_glusterfs_heketi_executor=ssh
+#openshift_storage_glusterfs_heketi_ssh_port=22
+#openshift_storage_glusterfs_heketi_ssh_user=root
+#openshift_storage_glusterfs_heketi_ssh_sudo=false
+#openshift_storage_glusterfs_heketi_ssh_keyfile="/tmp/id_rsa"
+#openshift_storage_glusterfs_image=registry.access.redhat.com/rhgs3/rhgs-server-rhel7:3.4.0-7
+#openshift_storage_glusterfs_block_image=registry.access.redhat.com/rhgs3/rhgs-gluster-block-prov-rhel7:3.4.0-6
+#openshift_storage_glusterfs_heketi_image=registry.access.redhat.com/rhgs3/rhgs-volmanager-rhel7:3.4.0-9
 
 #######################################################
 # CERTIFICATE 
@@ -157,7 +160,6 @@ openshift_metrics_storage_nfs_options='*(rw,root_squash)'
 openshift_metrics_storage_volume_name=metrics
 openshift_metrics_storage_volume_size=10Gi
 openshift_metrics_storage_labels={'storage':'metrics'}
-
 #openshift_metrics_cassandra_storage_type=pv
 #openshift_metrics_storage_volume_name=pvc-metrics
 #openshift_metrics_storage_volume_size=10Gi
@@ -165,17 +167,20 @@ openshift_metrics_storage_labels={'storage':'metrics'}
 #######################################################
 # PROMETHEUS
 #######################################################
-openshift_hosted_prometheus_deploy=true
+openshift_prometheus_state=present
 openshift_prometheus_namespace=openshift-metrics
 openshift_prometheus_node_selector={"region":"infra"}
-openshift_prometheus_storage_kind=nfs
-openshift_prometheus_storage_access_modes=['ReadWriteOnce']
-openshift_prometheus_storage_nfs_directory=/exports
+#openshift_prometheus_storage_kind=nfs
+#openshift_prometheus_alertmanager_storage_kind=nfs
+#openshift_prometheus_alertbuffer_storage_kind=nfs
+openshift_prometheus_storage_type=pvc
+openshift_prometheus_alertmanager_storage_type=pvc
+openshift_prometheus_alertbuffer_storage_type=pvc
+#openshift_prometheus_storage_access_modes=['ReadWriteOnce']
+#openshift_prometheus_storage_nfs_directory=/exports
 openshift_prometheus_storage_volume_name=prometheus
-openshift_prometheus_storage_alertmanager_nfs_options='*(rw,root_squash)'
-openshift_prometheus_alertmanager_storage_kind=nfs
-openshift_prometheus_alertbuffer_storage_kind=nfs
-openshift_prometheus_storage_alertbuffer_volume_size=10Gi
+#openshift_prometheus_storage_alertmanager_nfs_options='*(rw,root_squash)'
+openshift_prometheus_storage_alertbuffer_volume_size=1Gi
 openshift_prometheus_storage_labels={'storage': 'prometheus'}
 
 #######################################################
@@ -230,17 +235,20 @@ ocpmaster3.bizotdc.tech openshift_hostname=ocpmaster3.bizotdc.tech openshift_nod
 ocpinfra1.bizotdc.tech openshift_hostname=ocpinfra1.bizotdc.tech openshift_node_labels="{'region':'infra'}"
 ocpnode1.bizotdc.tech openshift_hostname=ocpnode1.bizotdc.tech openshift_node_labels="{'region':'apps'}"
 ocpnode2.bizotdc.tech openshift_hostname=ocpnode2.bizotdc.tech openshift_node_labels="{'region':'apps'}"
-azocpnode1.bizotdc.tech openshift_node_labels="{'region':'cloudapps'}"
-vpngw.bizotdc.tech openshift_node_labels="{'region':'vpn'}"
+ocpnode3.bizotdc.tech openshift_hostname=ocpnode3.bizotdc.tech openshift_node_labels="{'region':'apps'}"
+ocpsto1.bizotdc.tech openshift_hostname=ocpsto1.bizotdc.tech openshift_node_labels="{'region':'sto'}"
+ocpsto2.bizotdc.tech openshift_hostname=ocpsto2.bizotdc.tech openshift_node_labels="{'region':'sto'}"
+ocpsto3.bizotdc.tech openshift_hostname=ocpsto3.bizotdc.tech openshift_node_labels="{'region':'sto'}"
+ocpsto5.bizotdc.tech openshift_hostname=ocpsto5.bizotdc.tech openshift_node_labels="{'region':'sto'}"
 
 #######################################################
 # host group for glusterfs
 #######################################################
 [glusterfs]
-ocpsto1.bizotdc.tech glusterfs_ip=192.168.0.131 glusterfs_devices='[ "/dev/vdb" ]'
-ocpsto2.bizotdc.tech glusterfs_ip=192.168.0.132 glusterfs_devices='[ "/dev/vdb" ]'
-ocpsto3.bizotdc.tech glusterfs_ip=192.168.0.133 glusterfs_devices='[ "/dev/vdb" ]'
-ocpsto5.bizotdc.tech glusterfs_ip=192.168.0.135 glusterfs_devices='[ "/dev/vdb" ]'
+ocpsto1.bizotdc.tech glusterfs_ip=192.168.0.131 glusterfs_devices='[ "/dev/vdc" ]'
+ocpsto2.bizotdc.tech glusterfs_ip=192.168.0.132 glusterfs_devices='[ "/dev/vdc" ]'
+ocpsto3.bizotdc.tech glusterfs_ip=192.168.0.133 glusterfs_devices='[ "/dev/vdc" ]'
+ocpsto5.bizotdc.tech glusterfs_ip=192.168.0.135 glusterfs_devices='[ "/dev/vdc" ]'
 
 #######################################################
 # NFS
@@ -252,4 +260,3 @@ ocputils.bizotdc.tech openshift_hostname=ocputils.bizotdc.tech
 # NEW-NODES
 #######################################################
 [new_nodes]
-#azocpinfra1.bizotdc.tech openshift_node_labels="{'region':'cloudapps'}"
