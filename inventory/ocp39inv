@@ -235,7 +235,6 @@ ocpmaster3.bizotdc.tech openshift_hostname=ocpmaster3.bizotdc.tech openshift_nod
 ocpinfra1.bizotdc.tech openshift_hostname=ocpinfra1.bizotdc.tech openshift_node_labels="{'region':'infra'}"
 ocpnode1.bizotdc.tech openshift_hostname=ocpnode1.bizotdc.tech openshift_node_labels="{'region':'apps'}"
 ocpnode2.bizotdc.tech openshift_hostname=ocpnode2.bizotdc.tech openshift_node_labels="{'region':'apps'}"
-ocpnode3.bizotdc.tech openshift_hostname=ocpnode3.bizotdc.tech openshift_node_labels="{'region':'apps'}"
 ocpsto1.bizotdc.tech openshift_hostname=ocpsto1.bizotdc.tech openshift_node_labels="{'region':'sto'}"
 ocpsto2.bizotdc.tech openshift_hostname=ocpsto2.bizotdc.tech openshift_node_labels="{'region':'sto'}"
 ocpsto3.bizotdc.tech openshift_hostname=ocpsto3.bizotdc.tech openshift_node_labels="{'region':'sto'}"
