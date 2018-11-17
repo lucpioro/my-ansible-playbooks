@@ -6,4 +6,4 @@ ansible_ssh_user=root
 openshift_deployment_type=openshift-enterprise
 
 [nodes]
-opcnode3.bizotdc.tech node_labels="{'region': 'app'}"
+ocpnode3.bizotdc.tech node_labels="{'region': 'apps'}"
