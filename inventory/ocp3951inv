@@ -1,0 +1,262 @@
+[localhost]
+localhost ansible_connection=local
+
+# Create an OSEv3 group that contains the masters, nodes, and etcd groups
+[OSEv3:children]
+masters
+etcd
+nodes
+lb
+glusterfs
+nfs
+new_nodes
+
+# Set variables common for all OSEv3 hosts
+[OSEv3:vars]
+
+#######################################################
+# -- Ansible configuration
+#######################################################
+ansible_connection=ssh
+ansible_port=22
+ansible_user=root
+#ansible_user=ocpadmin
+ansible_become=false
+#ansible_become=true
+#######################################################
+# -- Installation configuration
+#######################################################
+openshift_deployment_type=openshift-enterprise
+openshift_release=3.9
+debug_level=2
+containerized=false
+openshift_set_hostname=true
+os_firewall_use_firewalld=True
+openshift_disable_check=docker_image_availability,memory_availability,package_availability
+openshift_enable_unsupported_configurations=True
+#######################################################
+# -- Cluster configuration
+#######################################################
+openshift_master_default_subdomain=apps.bizotdc.tech
+openshift_master_cluster_method=native 
+openshift_master_cluster_hostname=openshift.bizotdc.tech
+openshift_master_cluster_public_hostname=openshift.bizotdc.tech
+openshift_master_api_port=8443
+openshift_master_console_port=8443
+osm_default_node_selector="region=apps"
+# apply updated node defaults
+openshift_node_kubelet_args={'pods-per-core': ['10'], 'max-pods': ['250'], 'image-gc-high-threshold': ['90'], 'image-gc-low-threshold': ['80']} 
+# override the default controller lease ttl
+#osm_controller_lease_ttl=30 
+# enable ntp on masters to ensure proper failover
+openshift_clock_enabled=true
+#######################################################
+# -- Service Catalog
+#######################################################
+openshift_enable_service_catalog=true
+template_service_broker_install=true
+template_service_broker_selector={"region": "infra"}
+openshift_hosted_etcd_storage_kind=nfs
+openshift_hosted_etcd_storage_nfs_options="*(rw,root_squash,sync,no_wdelay)"
+openshift_hosted_etcd_storage_nfs_directory=/srv/ocpnfs
+openshift_hosted_etcd_storage_volume_name=etcdvol
+openshift_hosted_etcd_storage_access_modes=["ReadWriteOnce"]
+openshift_hosted_etcd_storage_volume_size=1G
+openshift_hosted_etcd_storage_labels={'storage': 'etcd'}
+
+#######################################################
+# CNS CRS GLUSTERFS
+#######################################################
+openshift_storage_glusterfs_namespace=app-storage
+openshift_storage_glusterfs_storageclass=true
+openshift_storage_glusterfs_storageclass_default=false
+openshift_storage_glusterfs_block_deploy=true
+openshift_storage_glusterfs_block_host_vol_create=true
+openshift_storage_glusterfs_block_host_vol_size=10
+openshift_storage_glusterfs_block_storageclass=true
+openshift_storage_glusterfs_block_storageclass_default=false
+openshift_storage_glusterfs_is_native=true
+openshift_storage_glusterfs_heketi_is_native=true
+
+#openshift_storage_glusterfs_heketi_executor=ssh
+#openshift_storage_glusterfs_heketi_ssh_port=22
+#openshift_storage_glusterfs_heketi_ssh_user=root
+#openshift_storage_glusterfs_heketi_ssh_sudo=false
+#openshift_storage_glusterfs_heketi_ssh_keyfile="/tmp/id_rsa"
+#openshift_storage_glusterfs_image=registry.access.redhat.com/rhgs3/rhgs-server-rhel7:3.4.0-7
+#openshift_storage_glusterfs_block_image=registry.access.redhat.com/rhgs3/rhgs-gluster-block-prov-rhel7:3.4.0-6
+#openshift_storage_glusterfs_heketi_image=registry.access.redhat.com/rhgs3/rhgs-volmanager-rhel7:3.4.0-9
+
+#######################################################
+# CERTIFICATE 
+#######################################################
+#openshift_master_overwrite_named_certificates=true
+#openshift_master_ca_certificate={'certfile':'/root/intermediate_ca.crt','keyfile':'/root/intermediate_ca.key'}
+#######################################################
+# SDN 
+#######################################################
+openshift_router_selector='region=infra'
+# osm_cluster_network_cidr=10.128.0.0/14
+# openshift_portal_net=172.30.0.0/16
+# os_sdn_network_plugin_name='redhat/openshift-ovs-subnet'
+# Configure the NetworkPolicy SDN plugin (Tech Preview)
+# os_sdn_network_plugin_name='redhat/openshift-ovs-networkpolicy'
+os_sdn_network_plugin_name='redhat/openshift-ovs-multitenant'
+#######################################################
+# ENABLE COCKPIT
+#######################################################
+osm_use_cockpit=true
+osm_cockpit_plugins=['cockpit-kubernetes']
+#######################################################
+# We set HTPasswd authentication
+#######################################################
+openshift_master_identity_providers=[{ 'name': 'htpasswd_auth', 'challenge': 'true', 'login': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd' }]
+openshift_master_htpasswd_users={ 'ocpadmin': '$apr1$6ZcUobF7$ZeFlZIoxSOjNrXiFZBhus1' }
+#######################################################
+# REGISTRY STORAGE
+#######################################################
+openshift_hosted_registry_storage_kind=nfs
+openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
+openshift_hosted_registry_storage_nfs_directory=/srv/ocpnfs
+openshift_hosted_registry_storage_nfs_options='*(rw,root_squash)'
+openshift_hosted_registry_storage_volume_name=registry
+openshift_hosted_registry_storage_volume_size=10Gi
+#######################################################
+# LOGGING
+#######################################################
+openshift_logging_install_logging=true
+openshift_logging_image_version=v3.9.51
+openshift_logging_purge_logging=false
+openshift_logging_use_ops=false
+openshift_logging_es_cluster_size=1
+openshift_logging_es_memory_limit=2Gi
+openshift_logging_es_nodeselector={"region":"infra"}
+openshift_logging_kibana_nodeselector={"region":"infra"}
+openshift_logging_curator_nodeselector={"region":"infra"}
+openshift_logging_storage_kind=nfs
+openshift_logging_storage_access_modes=['ReadWriteOnce']
+openshift_logging_storage_nfs_directory=/srv/ocpnfs
+openshift_logging_storage_nfs_options='*(rw,root_squash)'
+openshift_logging_storage_volume_name=logging
+openshift_logging_storage_volume_size=10Gi
+openshift_logging_storage_labels={'storage':'logging'}
+
+#openshift_logging_storage_kind=pv
+#openshift_logging_es_pv_selector=logging
+#openshift_logging_es_pvc_size=10Gi
+
+#######################################################
+# METRICS
+#######################################################
+openshift_metrics_install_metrics=true
+openshift_metrics_install_version=v3.9.51
+openshift_metrics_hawkular_hostname=hawkular-metrics.apps.bizotdc.tech
+openshift_metrics_hawkular_nodeselector={"region":"infra"}
+openshift_metrics_cassandra_nodeselector={"region":"infra"}
+openshift_metrics_heapster_nodeselector={"region":"infra"}
+openshift_metrics_storage_kind=nfs
+openshift_metrics_storage_access_modes=['ReadWriteOnce']
+openshift_metrics_storage_nfs_directory=/srv/ocpnfs
+openshift_metrics_storage_nfs_options='*(rw,root_squash)'
+openshift_metrics_storage_volume_name=metrics
+openshift_metrics_storage_volume_size=10Gi
+openshift_metrics_storage_labels={'storage':'metrics'}
+#openshift_metrics_cassandra_storage_type=pv
+#openshift_metrics_storage_volume_name=pvc-metrics
+#openshift_metrics_storage_volume_size=10Gi
+
+#######################################################
+# PROMETHEUS
+#######################################################
+openshift_prometheus_state=present
+openshift_prometheus_namespace=openshift-metrics
+openshift_prometheus_node_selector={"region":"infra"}
+#openshift_prometheus_storage_kind=nfs
+#openshift_prometheus_alertmanager_storage_kind=nfs
+#openshift_prometheus_alertbuffer_storage_kind=nfs
+openshift_prometheus_storage_type=pvc
+openshift_prometheus_alertmanager_storage_type=pvc
+openshift_prometheus_alertbuffer_storage_type=pvc
+#openshift_prometheus_storage_access_modes=['ReadWriteOnce']
+#openshift_prometheus_storage_nfs_directory=/exports
+openshift_prometheus_storage_volume_name=prometheus
+#openshift_prometheus_storage_alertmanager_nfs_options='*(rw,root_squash)'
+openshift_prometheus_storage_alertbuffer_volume_size=1Gi
+openshift_prometheus_storage_labels={'storage': 'prometheus'}
+
+#######################################################
+### Configure Storage for Ansible Broker
+#######################################################
+openshift_hosted_etcd_storage_kind=nfs
+openshift_hosted_etcd_storage_nfs_options='*(rw,root_squash,sync,no_wdelay)'
+openshift_hosted_etcd_storage_nfs_directory=/srv/ocpnfs 
+openshift_hosted_etcd_storage_volume_name=etcd
+openshift_hosted_etcd_storage_access_modes=["ReadWriteOnce"]
+openshift_hosted_etcd_storage_volume_size=2Gi
+openshift_hosted_etcd_storage_labels={'storage':'etcd'}
+
+[OSEv3:children]
+masters
+etcd
+nodes
+lb
+glusterfs
+nfs
+new_nodes
+
+#######################################################
+# host group for MASTERS
+#######################################################
+[masters]
+ocpmaster1.bizotdc.tech openshift_hostname=ocpmaster1.bizotdc.tech openshift_ip=192.168.0.121
+ocpmaster2.bizotdc.tech openshift_hostname=ocpmaster2.bizotdc.tech openshift_ip=192.168.0.122
+ocpmaster3.bizotdc.tech openshift_hostname=ocpmaster3.bizotdc.tech openshift_ip=192.168.0.123
+
+#######################################################
+# host group for ETCD
+#######################################################
+[etcd]
+ocpmaster1.bizotdc.tech openshift_hostname=ocpmaster1.bizotdc.tech openshift_ip=192.168.0.121
+ocpmaster2.bizotdc.tech openshift_hostname=ocpmaster2.bizotdc.tech openshift_ip=192.168.0.122
+ocpmaster3.bizotdc.tech openshift_hostname=ocpmaster3.bizotdc.tech openshift_ip=192.168.0.123
+
+#######################################################
+# host group for LB
+#######################################################
+[lb]
+ocplb.bizotdc.tech openshift_hostname=ocplb.bizotdc.tech openshift_ip=192.168.0.120
+
+#######################################################
+# host group for nodes, includes region info
+#######################################################
+[nodes]
+ocpmaster1.bizotdc.tech openshift_hostname=ocpmaster1.bizotdc.tech openshift_node_labels="{'region':'master'}"
+ocpmaster2.bizotdc.tech openshift_hostname=ocpmaster2.bizotdc.tech openshift_node_labels="{'region':'master'}"
+ocpmaster3.bizotdc.tech openshift_hostname=ocpmaster3.bizotdc.tech openshift_node_labels="{'region':'master'}" 
+ocpinfra1.bizotdc.tech openshift_hostname=ocpinfra1.bizotdc.tech openshift_node_labels="{'region':'infra'}"
+ocpnode1.bizotdc.tech openshift_hostname=ocpnode1.bizotdc.tech openshift_node_labels="{'region':'apps'}"
+ocpnode2.bizotdc.tech openshift_hostname=ocpnode2.bizotdc.tech openshift_node_labels="{'region':'apps'}"
+ocpsto1.bizotdc.tech openshift_hostname=ocpsto1.bizotdc.tech openshift_node_labels="{'region':'sto'}"
+ocpsto2.bizotdc.tech openshift_hostname=ocpsto2.bizotdc.tech openshift_node_labels="{'region':'sto'}"
+ocpsto3.bizotdc.tech openshift_hostname=ocpsto3.bizotdc.tech openshift_node_labels="{'region':'sto'}"
+ocpsto5.bizotdc.tech openshift_hostname=ocpsto5.bizotdc.tech openshift_node_labels="{'region':'sto'}"
+
+#######################################################
+# host group for glusterfs
+#######################################################
+[glusterfs]
+ocpsto1.bizotdc.tech glusterfs_ip=192.168.0.131 glusterfs_devices='[ "/dev/vdc" ]'
+ocpsto2.bizotdc.tech glusterfs_ip=192.168.0.132 glusterfs_devices='[ "/dev/vdc" ]'
+ocpsto3.bizotdc.tech glusterfs_ip=192.168.0.133 glusterfs_devices='[ "/dev/vdc" ]'
+ocpsto5.bizotdc.tech glusterfs_ip=192.168.0.135 glusterfs_devices='[ "/dev/vdc" ]'
+
+#######################################################
+# NFS
+#######################################################
+[nfs]
+ocputils.bizotdc.tech openshift_hostname=ocputils.bizotdc.tech
+
+#######################################################
+# NEW-NODES
+#######################################################
+[new_nodes]
