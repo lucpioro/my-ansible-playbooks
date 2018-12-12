@@ -62,7 +62,7 @@ openshift_hosted_registry_storage_volume_size=10Gi
 # Operator Lifecycle Manager
 #######################################################
 openshift_enable_olm=true
-openshift_additional_registry_credentials=[{'host':'registry.connect.redhat.com','user':'rh-gs-lpioro','password':'LPrh1234$','test_image':'couchbase/operator:latest'}]
+openshift_additional_registry_credentials=[{'host':'registry.connect.redhat.com','user':'RHN-ID','password':'RHN-PWS','test_image':'couchbase/operator:latest'}]
 
 #######################################################
 openshift_router_selector='region=infra'
