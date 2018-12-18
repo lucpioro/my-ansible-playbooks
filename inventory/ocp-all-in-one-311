@@ -34,7 +34,7 @@ oreg_auth_password='RHN PASSWORD'
 #######################################################
 # -- Cluster configuration
 #######################################################
-openshift_master_default_subdomain=ocpapps.bizotdc.tech
+openshift_master_default_subdomain=ocp.bizotdc.tech
 openshift_master_cluster_method=native 
 openshift_master_cluster_hostname=openshift311.bizotdc.tech
 openshift_master_cluster_public_hostname=openshift311.bizotdc.tech
