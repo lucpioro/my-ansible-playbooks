@@ -17,6 +17,8 @@ nfs
 ansible_connection=ssh
 ansible_port=22
 ansible_user=root
+#ansible_user=ocpadmin
+ansible_become=false
 #######################################################
 # -- Installation configuration
 #######################################################
@@ -34,12 +36,12 @@ oreg_auth_password='RHN PASSWORD'
 #######################################################
 # -- Cluster configuration
 #######################################################
-openshift_master_default_subdomain=ocp.bizotdc.tech
 openshift_master_cluster_method=native 
-openshift_master_cluster_hostname=openshift311.bizotdc.tech
-openshift_master_cluster_public_hostname=openshift311.bizotdc.tech
-openshift_master_api_port=3443
-openshift_master_console_port=3443
+openshift_master_cluster_hostname=openshift.bizotdc.tech
+openshift_master_cluster_public_hostname=openshift.bizotdc.tech
+openshift_master_default_subdomain=apps.bizotdc.tech
+openshift_master_api_port=8443
+openshift_master_console_port=8443
 osm_default_node_selector="region=apps"
 openshift_clock_enabled=true
 #######################################################
@@ -74,32 +76,42 @@ openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 
 openshift_master_htpasswd_users={ 'ocpadmin': '$apr1$6ZcUobF7$ZeFlZIoxSOjNrXiFZBhus1' }
 #######################################################
 
-[OSEv3:children]
-masters
-etcd
-nodes
-nfs
-
 #######################################################
 # host group for MASTERS
 #######################################################
 [masters]
-ocpallinone311.bizotdc.tech
+ocpmaster1.bizotdc.tech openshift_node_group_name='node-config-master'
+ocpmaster2.bizotdc.tech openshift_node_group_name='node-config-master'
+ocpmaster3.bizotdc.tech openshift_node_group_name='node-config-master'
 
 #######################################################
 # host group for ETCD
 #######################################################
 [etcd]
-ocpallinone311.bizotdc.tech
+ocpmaster1.bizotdc.tech openshift_node_group_name='node-config-master'
+ocpmaster2.bizotdc.tech openshift_node_group_name='node-config-master'
+ocpmaster3.bizotdc.tech openshift_node_group_name='node-config-master'
 
 #######################################################
-# host group for nodes, includes region info
+# host group for nodes
 #######################################################
 [nodes]
-ocpallinone311.bizotdc.tech openshift_node_group_name='node-config-all-in-one'
+ocpmaster1.bizotdc.tech openshift_node_group_name='node-config-master'
+ocpmaster2.bizotdc.tech openshift_node_group_name='node-config-master'
+ocpmaster3.bizotdc.tech openshift_node_group_name='node-config-master'
+ocpinfra1.bizotdc.tech openshift_node_group_name='node-config-infra'
+ocpnode1.bizotdc.tech openshift_node_group_name='node-config-compute'
+ocpnode2.bizotdc.tech openshift_node_group_name='node-config-compute'
+ocpnode3.bizotdc.tech openshift_node_group_name='node-config-compute'
+
+#######################################################
+# host group for LB, includes region info
+#######################################################
+[lb]
+ocplb.bizotdc.tech 
 
 #######################################################
 # NFS
 #######################################################
 [nfs]
-ocputils.bizotdc.tech openshift_hostname=ocputils.bizotdc.tech
+ocputils.bizotdc.tech 
