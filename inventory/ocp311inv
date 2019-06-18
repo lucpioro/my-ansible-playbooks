@@ -66,18 +66,13 @@ openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 
 openshift_master_htpasswd_users={ 'ocpadmin': '$apr1$6ZcUobF7$ZeFlZIoxSOjNrXiFZBhus1' }
 
 #######################################################
-# -- Default selectors for router and registry services
+# -- Deploy Default ROUTER REGISTRY & Default Selector
 #######################################################
 
-openshift_router_selector='node-role.kubernetes.io/infra=true'
-openshift_registry_selector='node-role.kubernetes.io/infra=true'
-
-#######################################################
-# -- Deploy Default ROUTER REGISTRY
-#######################################################
-
-openshift_hosted_manage_registry=true
 openshift_hosted_manage_router=true
+openshift_router_selector='node-role.kubernetes.io/infra=true'
+openshift_hosted_manage_registry=true
+openshift_registry_selector='node-role.kubernetes.io/infra=true'
 
 #######################################################
 # REGISTRY STORAGE
