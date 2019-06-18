@@ -53,6 +53,13 @@ osm_default_node_selector='node-role.kubernetes.io/compute=true'
 openshift_clock_enabled=true
 
 #######################################################
+# -- HTPasswd authentication
+#######################################################
+
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
+openshift_master_htpasswd_users={ 'ocpadmin': '$apr1$6ZcUobF7$ZeFlZIoxSOjNrXiFZBhus1' }
+
+#######################################################
 # -- Default selectors for router and registry services
 #######################################################
 
@@ -72,32 +79,30 @@ openshift_hosted_manage_router=true
 
 openshift_hosted_registry_storage_kind=nfs
 openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
-openshift_hosted_registry_storage_nfs_directory=/exports311
+openshift_hosted_registry_storage_nfs_directory=/srv/ocpnfs
 openshift_hosted_registry_storage_nfs_options='*(rw,root_squash)'
-openshift_hosted_registry_storage_volume_name=reg311
+openshift_hosted_registry_storage_volume_name=registry
 openshift_hosted_registry_storage_volume_size=10Gi
 
 #######################################################
 # SDN 
 #######################################################
-# Operator Lifecycle Manager
-#######################################################
-openshift_enable_olm=true
-openshift_additional_registry_credentials=[{'host':'registry.connect.redhat.com','user':'RHN-ID','password':'RHN-PWS','test_image':'couchbase/operator:latest'}]
+
+os_sdn_network_plugin_name='redhat/openshift-ovs-networkpolicy'
+# os_sdn_network_plugin_name='redhat/openshift-ovs-multitenant' 
+# os_sdn_network_plugin_name='redhat/openshift-ovs-subnet'
 
 #######################################################
-openshift_router_selector='region=apps'
-os_sdn_network_plugin_name='redhat/openshift-ovs-networkpolicy'
+# Operator Lifecycle Manager
 #######################################################
-# We set HTPasswd authentication
-#######################################################
-openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
-openshift_master_htpasswd_users={ 'ocpadmin': '$apr1$6ZcUobF7$ZeFlZIoxSOjNrXiFZBhus1' }
-#######################################################
+
+openshift_enable_olm=false
+#openshift_additional_registry_credentials=[{'host':'registry.connect.redhat.com','user':'RHN-ID','password':'RHN-PWS','test_image':'couchbase/operator:latest'}]
 
 #######################################################
 # host group for MASTERS
 #######################################################
+
 [masters]
 ocpmaster1.bizotdc.tech openshift_node_group_name='node-config-master'
 ocpmaster2.bizotdc.tech openshift_node_group_name='node-config-master'
@@ -106,6 +111,7 @@ ocpmaster3.bizotdc.tech openshift_node_group_name='node-config-master'
 #######################################################
 # host group for ETCD
 #######################################################
+
 [etcd]
 ocpmaster1.bizotdc.tech openshift_node_group_name='node-config-master'
 ocpmaster2.bizotdc.tech openshift_node_group_name='node-config-master'
@@ -114,6 +120,7 @@ ocpmaster3.bizotdc.tech openshift_node_group_name='node-config-master'
 #######################################################
 # host group for nodes
 #######################################################
+
 [nodes]
 ocpmaster1.bizotdc.tech openshift_node_group_name='node-config-master'
 ocpmaster2.bizotdc.tech openshift_node_group_name='node-config-master'
@@ -126,11 +133,13 @@ ocpnode3.bizotdc.tech openshift_node_group_name='node-config-compute'
 #######################################################
 # host group for LB, includes region info
 #######################################################
+
 [lb]
 ocplb.bizotdc.tech 
 
 #######################################################
 # NFS
 #######################################################
+
 [nfs]
 ocputils.bizotdc.tech 
