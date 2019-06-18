@@ -6,6 +6,7 @@ localhost ansible_connection=local
 masters
 etcd
 nodes
+lb
 nfs
 
 # Set variables common for all OSEv3 hosts
