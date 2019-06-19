@@ -167,7 +167,7 @@ ocpmaster2.bizotdc.tech openshift_node_group_name='node-config-master'
 ocpmaster3.bizotdc.tech openshift_node_group_name='node-config-master'
 ocpinfra1.bizotdc.tech openshift_node_group_name='node-config-infra-maq-metrics'
 ocpnode1.bizotdc.tech openshift_node_group_name='node-compute-app-maq'
-ocpnode2.bizotdc.tech openshift_node_group_name='node-compute-app-maq
+ocpnode2.bizotdc.tech openshift_node_group_name='node-compute-app-maq'
 
 [nfs]
 ocputils.bizotdc.tech
