@@ -1,0 +1,17 @@
+---
+# file: ocp_clear.yml
+
+- hosts: ocpallnodes
+  tasks:
+  - name: stop all docker containers
+    shell: docker stop $(docker ps -a -q)
+    ignore_errors: true
+  - name: stop docker service
+    shell: systemctl stop docker
+    ignore_errors: true
+  - name: delete data dir
+    shell: rm -rf /var/lib/docker/*
+  - name: reset storage
+    shell: container-storage-setup --reset
+  - name: start docker service
+    shell: systemctl start docker
