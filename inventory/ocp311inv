@@ -91,9 +91,16 @@ openshift_hosted_registry_storage_volume_size=10Gi
 # SDN 
 #######################################################
 
-os_sdn_network_plugin_name='redhat/openshift-ovs-networkpolicy'
-# os_sdn_network_plugin_name='redhat/openshift-ovs-multitenant' 
+os_sdn_network_plugin_name='redhat/openshift-ovs-multitenant'
+# os_sdn_network_plugin_name='redhat/openshift-ovs-networkpolicy'
 # os_sdn_network_plugin_name='redhat/openshift-ovs-subnet'
+
+#######################################################
+# -- Service Catalog - Service Broker 
+#######################################################
+
+openshift_enable_service_catalog=false
+ansible_service_broker_install=false
 
 #######################################################
 # -- Operator Lifecycle Manager
