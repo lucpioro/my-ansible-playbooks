@@ -1,3 +1,6 @@
+[localhost]
+localhost ansible_connection=local
+
 [OSEv3:children]
 masters
 etcd
@@ -5,8 +8,8 @@ nodes
 lb
 nfs
 
-# Set variables common for all OSEv3 hosts
 [OSEv3:vars]
+
 #######################################################
 # -- Ansible configuration
 #######################################################
@@ -15,6 +18,7 @@ ansible_port=22
 ansible_user=root
 #ansible_user=ocpadmin
 ansible_become=false
+
 #######################################################
 # -- Installation configuration
 #######################################################
@@ -22,6 +26,7 @@ openshift_deployment_type=openshift-enterprise
 os_firewall_use_firewalld=True
 openshift_disable_check=disk_availability,docker_storage,memory_availability,docker_image_availability,package_availability,package_version
 openshift_enable_unsupported_configurations=True
+
 #######################################################
 # -- Registry Image Location
 #######################################################
@@ -30,6 +35,7 @@ oreg_auth_user='ID'
 oreg_auth_password='PASSWORD'
 # If you use an image registry other than the default at registry.redhat.io
 #openshift_examples_modify_imagestreams=true
+
 #######################################################
 # -- Cluster configuration
 #######################################################
@@ -40,19 +46,23 @@ openshift_master_default_subdomain=apps.bizotdc.tech
 openshift_master_api_port=8443
 openshift_master_console_port=8443
 osm_default_node_selector='node-role.kubernetes.io/compute=true'
+
 #######################################################
 # -- Node Groups
 #######################################################
 openshift_node_groups=[{'name': 'node-compute-app-maq','labels':['node-role.kubernetes.io/master=false','node-role.kubernetes.io/infra=false','node-role.kubernetes.io/compute=true','region=app','zone=maq']}, {'name': 'node-config-infra-maq-metrics','labels':['node-role.kubernetes.io/master=false','node-role.kubernetes.io/infra=true','node-role.kubernetes.io/compute=false','region=infra','zone=maq','target=metrics']}, {'name': 'node-config-master', 'labels': ['node-role.kubernetes.io/master=true']}, {'name': 'node-config-infra', 'labels': ['node-role.kubernetes.io/infra=true']}, {'name': 'node-config-compute', 'labels': ['node-role.kubernetes.io/compute=true']}]
+
 #######################################################
 # -- Make sure NTP is enabled
 #######################################################
 openshift_clock_enabled=true
+
 #######################################################
 # -- HTPasswd authentication
 #######################################################
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
 openshift_master_htpasswd_users={ 'ocpadmin': '$apr1$6ZcUobF7$ZeFlZIoxSOjNrXiFZBhus1' }
+
 #######################################################
 # -- Deploy Default ROUTER REGISTRY & Default Selector
 #######################################################
@@ -60,6 +70,7 @@ openshift_hosted_manage_router=true
 openshift_router_selector='node-role.kubernetes.io/infra=true'
 openshift_hosted_manage_registry=true
 openshift_registry_selector='node-role.kubernetes.io/infra=true'
+
 #######################################################
 # REGISTRY STORAGE
 #######################################################
@@ -69,26 +80,31 @@ openshift_hosted_registry_storage_nfs_directory=/srv/ocpnfs
 openshift_hosted_registry_storage_nfs_options='*(rw,root_squash)'
 openshift_hosted_registry_storage_volume_name=registry
 openshift_hosted_registry_storage_volume_size=10Gi
+
 #######################################################
 # SDN 
 #######################################################
 os_sdn_network_plugin_name='redhat/openshift-ovs-multitenant'
 # os_sdn_network_plugin_name='redhat/openshift-ovs-networkpolicy'
 # os_sdn_network_plugin_name='redhat/openshift-ovs-subnet'
+
 #######################################################
 # -- Service Catalog - Service Broker 
 #######################################################
 openshift_enable_service_catalog=false
 ansible_service_broker_install=false
+
 #######################################################
 # -- Operator Lifecycle Manager
 #######################################################
 openshift_enable_olm=false
 #openshift_additional_registry_credentials=[{'host':'registry.connect.redhat.com','user':'RHN-ID','password':'RHN-PWS','test_image':'couchbase/operator:latest'}]
+
 #######################################################
 # -- Configuring Cluster Monitoring
 #######################################################
 openshift_cluster_monitoring_operator_install=false
+
 #######################################################
 # -- Configuring Cluster Metrics
 #######################################################
@@ -108,6 +124,7 @@ openshift_metrics_storage_labels={'storage':'metrics'}
 #openshift_metrics_cassandra_storage_type=pv
 #openshift_metrics_storage_volume_name=pvc-metrics
 #openshift_metrics_storage_volume_size=10Gi
+
 #######################################################
 # -- Configuring Cluster Logging
 #######################################################
@@ -128,29 +145,22 @@ openshift_logging_storage_volume_name=logging
 openshift_logging_storage_volume_size=10Gi
 openshift_logging_storage_labels={'storage':'logging'}
 
-[OSEv3:children]
-masters
-etcd
-nodes
-lb
-nfs
 #######################################################
-# host group for MASTERS
+# host group 
 #######################################################
 [masters]
-ocpmaster1.bizotdc.tech openshift_node_group_name='node-config-master'
-ocpmaster2.bizotdc.tech openshift_node_group_name='node-config-master'
-ocpmaster3.bizotdc.tech openshift_node_group_name='node-config-master'
-#######################################################
-# host group for ETCD
-#######################################################
+ocpmaster1.bizotdc.tech 
+ocpmaster2.bizotdc.tech 
+ocpmaster3.bizotdc.tech 
+
 [etcd]
-ocpmaster1.bizotdc.tech openshift_node_group_name='node-config-master'
-ocpmaster2.bizotdc.tech openshift_node_group_name='node-config-master'
-ocpmaster3.bizotdc.tech openshift_node_group_name='node-config-master'
-#######################################################
-# host group for nodes
-#######################################################
+ocpmaster1.bizotdc.tech 
+ocpmaster2.bizotdc.tech
+ocpmaster3.bizotdc.tech
+
+[lb]
+ocplb.bizotdc.tech
+
 [nodes]
 ocpmaster1.bizotdc.tech openshift_node_group_name='node-config-master'
 ocpmaster2.bizotdc.tech openshift_node_group_name='node-config-master'
@@ -158,13 +168,6 @@ ocpmaster3.bizotdc.tech openshift_node_group_name='node-config-master'
 ocpinfra1.bizotdc.tech openshift_node_group_name='node-config-infra-maq-metrics'
 ocpnode1.bizotdc.tech openshift_node_group_name='node-compute-app-maq'
 ocpnode2.bizotdc.tech openshift_node_group_name='node-compute-app-maq
-#######################################################
-# host group for LB, includes region info
-#######################################################
-[lb]
-ocplb.bizotdc.tech
-#######################################################
-# NFS
-#######################################################
+
 [nfs]
 ocputils.bizotdc.tech
