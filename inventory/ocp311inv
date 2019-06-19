@@ -128,6 +128,12 @@ openshift_logging_storage_volume_name=logging
 openshift_logging_storage_volume_size=10Gi
 openshift_logging_storage_labels={'storage':'logging'}
 
+[OSEv3:children]
+masters
+etcd
+nodes
+lb
+nfs
 #######################################################
 # host group for MASTERS
 #######################################################
