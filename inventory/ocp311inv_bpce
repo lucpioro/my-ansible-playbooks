@@ -50,7 +50,7 @@ osm_default_node_selector='node-role.kubernetes.io/compute=true'
 #######################################################
 # -- Node Groups
 #######################################################
-openshift_node_groups=[{'name': 'node-compute-app-maq','labels':['node-role.kubernetes.io/master=false','node-role.kubernetes.io/infra=false','node-role.kubernetes.io/compute=true','region=app','zone=maq']}, {'name': 'node-config-infra-maq-metrics','labels':['node-role.kubernetes.io/master=false','node-role.kubernetes.io/infra=true','node-role.kubernetes.io/compute=false','region=infra','zone=maq','target=metrics']}, {'name': 'node-config-master', 'labels': ['node-role.kubernetes.io/master=true']}, {'name': 'node-config-infra', 'labels': ['node-role.kubernetes.io/infra=true']}, {'name': 'node-config-compute', 'labels': ['node-role.kubernetes.io/compute=true']}]
+openshift_node_groups=[{'name': 'node-config-compute-app-maq','labels':['node-role.kubernetes.io/master=false','node-role.kubernetes.io/infra=false','node-role.kubernetes.io/compute=true','region=app','zone=maq']}, {'name': 'node-config-infra-maq-metrics','labels':['node-role.kubernetes.io/master=false','node-role.kubernetes.io/infra=true','node-role.kubernetes.io/compute=false','region=infra','zone=maq','target=metrics']}, {'name': 'node-config-master', 'labels': ['node-role.kubernetes.io/master=true']}, {'name': 'node-config-infra', 'labels': ['node-role.kubernetes.io/infra=true']}, {'name': 'node-config-compute', 'labels': ['node-role.kubernetes.io/compute=true']}]
 
 #######################################################
 # -- Make sure NTP is enabled
@@ -166,8 +166,8 @@ ocpmaster1.bizotdc.tech openshift_node_group_name='node-config-master'
 ocpmaster2.bizotdc.tech openshift_node_group_name='node-config-master'
 ocpmaster3.bizotdc.tech openshift_node_group_name='node-config-master'
 ocpinfra1.bizotdc.tech openshift_node_group_name='node-config-infra-maq-metrics'
-ocpnode1.bizotdc.tech openshift_node_group_name='node-compute-app-maq'
-ocpnode2.bizotdc.tech openshift_node_group_name='node-compute-app-maq'
+ocpnode1.bizotdc.tech openshift_node_group_name='node-config-compute-app-maq'
+ocpnode2.bizotdc.tech openshift_node_group_name='node-config-compute-app-maq'
 
 [nfs]
 ocputils.bizotdc.tech
