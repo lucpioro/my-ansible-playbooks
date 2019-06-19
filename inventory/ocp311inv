@@ -55,11 +55,11 @@ openshift_master_console_port=8443
 osm_default_node_selector='node-role.kubernetes.io/compute=true'
 
 #######################################################
-# -- Custom Node Groups
+# -- Node Groups
 #######################################################
 
-openshift_node_groups=[{'name': 'node-compute-app-maq','labels':['node-role.kubernetes.io/master=false','node-role.kubernetes.io/infra=false','node-role.kubernetes.io/compute=true','region=app','zone=maq']}]
-openshift_node_groups=[{'name': 'node-config-infra-maq-metrics','labels':['node-role.kubernetes.io/master=false','node-role.kubernetes.io/infra=true','node-role.kubernetes.io/compute=false','region=infra','zone=maq','target=metrics']}]
+openshift_node_groups=[{'name': 'node-compute-app-maq','labels':['node-role.kubernetes.io/master=false','node-role.kubernetes.io/infra=false','node-role.kubernetes.io/compute=true','region=app','zone=maq']}, {'name': 'node-config-infra-maq-metrics','labels':['node-role.kubernetes.io/master=false','node-role.kubernetes.io/infra=true','node-role.kubernetes.io/compute=false','region=infra','zone=maq','target=metrics']}, {'name': 'node-config-master', 'labels': ['node-role.kubernetes.io/master=true']}]
+
 
 #######################################################
 # -- Make sure NTP is enabled
