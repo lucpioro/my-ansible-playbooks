@@ -147,7 +147,6 @@ openshift_metrics_storage_labels={'storage':'metrics'}
 # -- Configuring Cluster Logging
 #######################################################
 
-
 openshift_logging_install_logging=true
 #openshift_logging_image_version=v3x
 openshift_logging_purge_logging=false
