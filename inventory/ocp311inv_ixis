@@ -5,8 +5,6 @@ localhost ansible_connection=local
 masters
 etcd
 nodes
-lb
-nfs
 new_nodes
 
 [OSEv3:vars]
@@ -165,28 +163,32 @@ openshift_logging_curator_default_days=7
 # host group 
 #######################################################
 [masters]
-ocpmaster1.bizotdc.tech 
-ocpmaster2.bizotdc.tech 
-ocpmaster3.bizotdc.tech 
+sltifrflgm000.DOMAIN
+sltifrflgm001.DOMAIN
+sltifrflgm002.DOMAIN
 
 [etcd]
-ocpmaster1.bizotdc.tech 
-ocpmaster2.bizotdc.tech
-ocpmaster3.bizotdc.tech
-
-[lb]
-ocplb.bizotdc.tech
+sltifrflgm000.DOMAIN
+sltifrflgm001.DOMAIN
+sltifrflgm002.DOMAIN
 
 [nodes]
-ocpmaster1.bizotdc.tech openshift_node_group_name='node-config-master'
-ocpmaster2.bizotdc.tech openshift_node_group_name='node-config-master'
-ocpmaster3.bizotdc.tech openshift_node_group_name='node-config-master'
-ocpinfra1.bizotdc.tech openshift_node_group_name='node-config-infra-maq-metrics'
-ocpnode1.bizotdc.tech openshift_node_group_name='node-config-compute-app-maq'
-ocpnode2.bizotdc.tech openshift_node_group_name='node-config-compute-app-maq'
-
-[nfs]
-ocputils.bizotdc.tech
+sltifrflgm000.DOMAIN openshift_node_group_name='node-config-master'
+sltifrflgm001.DOMAIN openshift_node_group_name='node-config-master'
+sltifrflgm002.DOMAIN openshift_node_group_name='node-config-master'
+sltifrflgi000.DOMAIN openshift_node_group_name='node-config-infra'
+sltifrflgi001.DOMAIN openshift_node_group_name='node-config-infra'
+sltifrflgi002.DOMAIN openshift_node_group_name='node-config-infra'
+sltifrflgi003.DOMAIN openshift_node_group_name='node-config-infra'
+sltifrflga000.DOMAIN openshift_node_group_name='node-config-compute'
+sltifrflga001.DOMAIN openshift_node_group_name='node-config-compute'
+sltifrflga002.DOMAIN openshift_node_group_name='node-config-compute'
+sltifrflga003.DOMAIN openshift_node_group_name='node-config-compute'
 
 [new_nodes]
-ocpnode4.bizotdc.tech openshift_node_group_name='node-config-compute-app-maq'
+
+[gluster_nodes]
+sltifrflgg000
+sltifrflgg001
+sltifrflgga00
+
