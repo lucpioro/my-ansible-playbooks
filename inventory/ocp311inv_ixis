@@ -5,7 +5,7 @@ localhost ansible_connection=local
 masters
 etcd
 nodes
-new_nodes
+glusterfs
 
 [OSEv3:vars]
 
@@ -185,9 +185,7 @@ sltifrflga001.DOMAIN openshift_node_group_name='node-config-compute'
 sltifrflga002.DOMAIN openshift_node_group_name='node-config-compute'
 sltifrflga003.DOMAIN openshift_node_group_name='node-config-compute'
 
-[new_nodes]
-
-[gluster_nodes]
+[glusterfs]
 sltifrflgg000
 sltifrflgg001
 sltifrflgga00
