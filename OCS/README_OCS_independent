@@ -17,7 +17,11 @@ Image TAG .  OCS-3.11 BU3
             rhgs3/rhgs-s3-server-rhel7:3.11.3-3
 
 
- The minimum required RHEL version for Gluster-block storage is RHEL 7.5.4 (kernel version 3.10.0-862.14.4.el7.x86_64)
+The minimum required RHEL version for Gluster-block storage is RHEL 7.5.4 
+# rpm -q kernel
+kernel-3.10.0-862.14.4.el7.x86_64
+# uname -r
+3.10.0-862.14.4.el7.x86_64
 
 
 OCS	    RHGS	  RHGS RPM	                  RHGS Op-Version	  heketi	    cns-deploy	  openshift-ansible
@@ -30,9 +34,8 @@ Execute the following commands to install heketi-client package.
 # yum install heketi-client
 
 
-
-
 All OpenShift nodes on Red Hat Enterprise Linux systems must have glusterfs-client RPMs
+# subscription-manager repos --enable=rh-gluster-3-client-for-rhel-7-server-rpms
 # yum list glusterfs glusterfs-client-xlators glusterfs-libs glusterfs-fuse
 
   The client RPMsmust have the same version as the gluster-rhgs-server version. 
@@ -40,4 +43,59 @@ All OpenShift nodes on Red Hat Enterprise Linux systems must have glusterfs-clie
   
   https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/3.4/html-single/administration_guide/index#Installing_Native_Client
   
-  
+Minimum Red Hat Openshift Container Storage cluster size (4): It is recommended to have a
+minimum of 4 nodes in the Red Hat Openshift Container Storage cluster to adequately meet
+high-availability requirements. Although 3 nodes are required to create a persistent volume
+claim, the failure of one node in a 3 node cluster prevents the persistent volume claim from
+being created. The fourth node provides high-availability and allows the persistent volume claim
+to be created even if a node fails.
+
+Minimum requirements: Each physical or virtual node that hosts a Red Hat Gluster Storage
+independent mode peer requires the following:
+            a minimum of 8 GB RAM and 30 MB per persistent volume.
+            the same disk type.
+            the heketidb utilises 2 GB distributed replica volume.
+            a minimum of 2 physical core pair ( 2 physical core pair translates to 4vCPU for non hyper-threaded systems and 8 vCPU for
+            hyper-threaded systems )
+
+It is recommended to create a separate /var partition that is large enough (50GB -
+100GB) for log files, geo-replication related miscellaneous files, and other files.
+
+# subscription-manager repos --enable=rhel-7-server-rpms
+# subscription-manager repos --enable=rh-gluster-3-for-rhel-7-server-rpms
+# subscription-manager repos --enable=rhel-7-server-extras-rpms
+
+# yum install redhat-storage-server
+# yum install gluster-block
+
+# firewall-cmd --zone=zone_name --add-port=24010/tcp --add-port=3260/tcp --add-port=111/tcp --add-port=22/tcp --add-port=24007/tcp --add-port=24008/tcp --add-port=49152-49664/tcp
+# firewall-cmd --zone=zone_name --add-port=24010/tcp --add-port=3260/tcp --add-port=111/tcp --add-port=22/tcp --add-port=24007/tcp --add-port=24008/tcp --add-port=49152-49664/tcp --
+permanent
+
+Port 24010 and 3260 are for gluster-blockd and iSCSI targets respectively.
+
+The port range starting at 49664 defines the range of ports that can be used by GlusterFS for communication to its volume bricks. In the above example the total
+number of bricks allowed is 512. Configure the port range based on the maximum number of bricks that could be hosted on each node.
+
+Red Hat Gluster Storage nodes.
+            # cat /etc/modules-load.d/dm_thin_pool.conf
+            dm_thin_pool
+            # cat /etc/modules-load.d/target_core_user.conf
+            target_core_user
+
+            # lsmod | grep dm_thin_pool
+            # lsmod | grep target_core_user
+
+
+on all OpenShift Container Platform nodes.
+
+            # cat /etc/modules-load.d/dm_multipath.conf
+            dm_multipath
+
+            # lsmod | grep dm_multipath
+
+
+
+
+
+
