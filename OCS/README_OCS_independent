@@ -95,6 +95,10 @@ on all OpenShift Container Platform nodes.
             # lsmod | grep dm_multipath
 
 
+openshift_storage_glusterfs_block_image=registry.access.redhat.com/rhgs3/ rhgsgluster-block-prov-rhel7:v3.11.3
+openshift_storage_glusterfs_heketi_image=registry.access.redhat.com/rhgs3 /rhgsvolmanager-rhel7:v3.11.3
+openshift_storage_glusterfs_s3_server_image=registry.access.redhat.com/rh gs3/rhgss3-server-rhel7:v3.11.3
+
 
 
 
