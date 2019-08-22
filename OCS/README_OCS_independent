@@ -99,6 +99,8 @@ openshift_storage_glusterfs_block_image=registry.access.redhat.com/rhgs3/ rhgsgl
 openshift_storage_glusterfs_heketi_image=registry.access.redhat.com/rhgs3 /rhgsvolmanager-rhel7:v3.11.3
 openshift_storage_glusterfs_s3_server_image=registry.access.redhat.com/rh gs3/rhgss3-server-rhel7:v3.11.3
 
+https://github.com/openshift/openshift-ansible/tree/release-3.11/roles/openshift_storage_glusterfs
+
 
 
 
