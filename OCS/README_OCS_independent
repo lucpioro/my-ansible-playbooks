@@ -1,0 +1,43 @@
+Independent mode provides dynamically provisioned storage, statically provisioned storage, RWO
+support, and RWX support. Further, it provides full support for OpenShift Container Platform
+infrastructure services like logging, metrics, and registry services.
+
+For supported versions of OpenShift Container Platform with Red Hat Gluster Storage Server and
+Container-Native Storage, 
+
+please see 
+            https://access.redhat.com/articles/3403951
+            https://access.redhat.com/articles/3930371
+
+Image TAG .  OCS-3.11 BU3
+
+            rhgs3/rhgs-server-rhel7:3.11.3-12
+            rhgs3/rhgs-volmanager-rhel7:3.11.3-3
+            rhgs3/rhgs-gluster-block-prov-rhel7:3.11.3-2
+            rhgs3/rhgs-s3-server-rhel7:3.11.3-3
+
+
+ The minimum required RHEL version for Gluster-block storage is RHEL 7.5.4 (kernel version 3.10.0-862.14.4.el7.x86_64)
+
+
+OCS	    RHGS	  RHGS RPM	                  RHGS Op-Version	  heketi	    cns-deploy	  openshift-ansible
+3.11.3	3.4.4	  glusterfs-3.12.2-47.el7rhgs	31305	            8.0.0-12	  7.0.0-11	    3.11.92-1
+
+
+Install heketi-client package
+Execute the following commands to install heketi-client package.
+# subscription-manager repos --enable=rh-gluster-3-client-for-rhel-7-server-rpms
+# yum install heketi-client
+
+
+
+
+All OpenShift nodes on Red Hat Enterprise Linux systems must have glusterfs-client RPMs
+# yum list glusterfs glusterfs-client-xlators glusterfs-libs glusterfs-fuse
+
+  The client RPMsmust have the same version as the gluster-rhgs-server version. 
+  The gluster-rhgs-server version is based on the selected OCS version.
+  
+  https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/3.4/html-single/administration_guide/index#Installing_Native_Client
+  
+  
