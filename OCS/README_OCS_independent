@@ -101,7 +101,11 @@ openshift_storage_glusterfs_s3_server_image=registry.access.redhat.com/rh gs3/rh
 
 https://github.com/openshift/openshift-ansible/tree/release-3.11/roles/openshift_storage_glusterfs
 
+/usr/share/ansible/openshift-ansible/playbooks/openshift-glusterfs/config.yml 
+            can be used to deploy the clusters onto an existing OpenShift Container Platform installation.
 
-
+/usr/share/ansible/openshift-ansible/playbooks/openshift-glusterfs/registry.yml 
+            can beused to deploy the clusters onto an existing OpenShift Container Platform installation. 
+            In addition, this deploys an integrated OpenShift Container Registry, which uses GlusterFS storage.
 
 
