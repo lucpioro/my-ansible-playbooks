@@ -162,21 +162,24 @@ openshift_logging_curator_default_days=7
 #######################################################
 # -- OCS Storage - Independant Mode
 #######################################################
-openshift_storage_glusterfs_namespace=app-storage
-openshift_storage_glusterfs_storageclass=true
-openshift_storage_glusterfs_storageclass_default=false
-openshift_storage_glusterfs_block_deploy=true
-openshift_storage_glusterfs_block_host_vol_create=true
-openshift_storage_glusterfs_block_host_vol_size=100
-openshift_storage_glusterfs_block_storageclass=true
-openshift_storage_glusterfs_block_storageclass_default=false
 openshift_storage_glusterfs_is_native=false
 openshift_storage_glusterfs_heketi_is_native=true
 openshift_storage_glusterfs_heketi_executor=ssh
 openshift_storage_glusterfs_heketi_ssh_port=22
 openshift_storage_glusterfs_heketi_ssh_user=root
 openshift_storage_glusterfs_heketi_ssh_sudo=false
-openshift_storage_glusterfs_heketi_ssh_keyfile="/tmp/id_rsa »
+openshift_storage_glusterfs_heketi_ssh_keyfile="/tmp/id_rsa"
+
+openshift_storage_glusterfs_namespace=app-storage
+openshift_storage_glusterfs_storageclass=true
+openshift_storage_glusterfs_storageclass_default=false
+
+openshift_storage_glusterfs_block_deploy=true
+openshift_storage_glusterfs_block_host_vol_create=true
+openshift_storage_glusterfs_block_host_vol_size=100
+openshift_storage_glusterfs_block_storageclass=true
+openshift_storage_glusterfs_block_storageclass_default=false
+
 
 #######################################################
 # host group 
