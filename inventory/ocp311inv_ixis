@@ -47,10 +47,10 @@ openshift_master_console_port=8443
 osm_default_node_selector='node-role.kubernetes.io/compute=true'
 
 #######################################################
-# -- Node Groups
+# -- Node Groups Customization
 #######################################################
-#openshift_node_groups=[{'name': 'node-config-compute-app-maq','labels':['node-role.kubernetes.io/master=false','node-role.kubernetes.io/infra=false','node-role.kubernetes.io/compute=true','region=app','zone=maq']}, {'name': 'node-config-infra-maq-metrics','labels':['node-role.kubernetes.io/master=false','node-role.kubernetes.io/infra=true','node-role.kubernetes.io/compute=false','region=infra','zone=maq','target=metrics']}, {'name': 'node-config-master', 'labels': ['node-role.kubernetes.io/master=true']}, {'name': 'node-config-infra', 'labels': ['node-role.kubernetes.io/infra=true']}, {'name': 'node-config-compute', 'labels': ['node-role.kubernetes.io/compute=true']}]
-openshift_node_groups=[{'name':'node-config-compute-app-maq','labels':['node-role.kubernetes.io/compute=true','region=app','zone=maq']},{'name':'node-config-infra-maq-metrics','labels':['node-role.kubernetes.io/infra=true','region=infra','zone=maq','target=metrics']},{'name':'node-config-master','labels':['node-role.kubernetes.io/master=true']},{'name': 'node-config-infra','labels':['node-role.kubernetes.io/infra=true']},{'name':'node-config-compute','labels':['node-role.kubernetes.io/compute=true']}]
+#example
+#openshift_node_groups=[{'name':'node-config-compute-app-maq','labels':['node-role.kubernetes.io/compute=true','region=app','zone=maq']},{'name':'node-config-infra-maq-metrics','labels':['node-role.kubernetes.io/infra=true','region=infra','zone=maq','target=metrics']},{'name':'node-config-master','labels':['node-role.kubernetes.io/master=true']},{'name': 'node-config-infra','labels':['node-role.kubernetes.io/infra=true']},{'name':'node-config-compute','labels':['node-role.kubernetes.io/compute=true']}]
 
 #######################################################
 # -- Make sure NTP is enabled
@@ -97,7 +97,7 @@ ansible_service_broker_install=false
 #######################################################
 # -- Operator Lifecycle Manager
 #######################################################
-openshift_enable_olm=true
+#openshift_enable_olm=false
 #openshift_additional_registry_credentials=[{'host':'registry.connect.redhat.com','user':'RHN ID','password':'RHN PWD','test_image':'couchbase/operator:latest'}]
 
 #######################################################
@@ -158,6 +158,25 @@ openshift_logging_es_cluster_size=1
 openshift_logging_es_memory_limit=2Gi
 openshift_logging_es_ops_memory_limit=2Gi
 openshift_logging_curator_default_days=7
+
+#######################################################
+# -- OCS Storage - Independant Mode
+#######################################################
+openshift_storage_glusterfs_namespace=app-storage
+openshift_storage_glusterfs_storageclass=true
+openshift_storage_glusterfs_storageclass_default=false
+openshift_storage_glusterfs_block_deploy=true
+openshift_storage_glusterfs_block_host_vol_create=true
+openshift_storage_glusterfs_block_host_vol_size=100
+openshift_storage_glusterfs_block_storageclass=true
+openshift_storage_glusterfs_block_storageclass_default=false
+openshift_storage_glusterfs_is_native=false
+openshift_storage_glusterfs_heketi_is_native=true
+openshift_storage_glusterfs_heketi_executor=ssh
+openshift_storage_glusterfs_heketi_ssh_port=22
+openshift_storage_glusterfs_heketi_ssh_user=root
+openshift_storage_glusterfs_heketi_ssh_sudo=false
+openshift_storage_glusterfs_heketi_ssh_keyfile="/tmp/id_rsa »
 
 #######################################################
 # host group 
