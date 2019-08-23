@@ -47,6 +47,10 @@ openshift_hostname_check=false
 osm_default_node_selector='node-role.kubernetes.io/compute=true'
 
 #######################################################
+# -- Certificats
+#######################################################
+
+#######################################################
 # -- Registry setup & Image Location
 #######################################################
 openshift_hosted_manage_registry=true
