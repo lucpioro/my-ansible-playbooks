@@ -49,6 +49,8 @@ osm_default_node_selector='node-role.kubernetes.io/compute=true'
 #######################################################
 # -- Certificats
 #######################################################
+openshift_master_named_certificates=[{"certfile": "/xxx/yyy.crt", "keyfile": "/xxx/yyyy.key", "cafile": "/xxx/yyyyy.cer"}]
+
 
 #######################################################
 # -- Registry setup & Image Location
