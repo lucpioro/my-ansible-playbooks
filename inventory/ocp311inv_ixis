@@ -31,7 +31,7 @@ openshift_enable_unsupported_configurations=True
 #######################################################
 # -- Docker setup
 #######################################################
-openshift_docker_additional_registries='registry-mirror.intranatixis.com'
+openshift_docker_additional_registries='registry-mirror.domain.com'
 openshift_docker_blocked_registries='registry.access.redhat.com,docker.io'
 
 #######################################################
@@ -55,8 +55,8 @@ openshift_registry_selector='node-role.kubernetes.io/infra=true'
 openshift_hosted_registry_replicas=3
 
 oreg_url='registry-mirror.domain.com/openshift3/ose-${component}:${version}'
-oreg_auth_user='rh-gs-lpioro'
-oreg_auth_password='LPrh1234$'
+oreg_auth_user='USER'
+oreg_auth_password='PWD'
 
 # If you use an image registry other than the default at registry.redhat.io
 openshift_examples_modify_imagestreams=true
@@ -70,16 +70,14 @@ openshift_logging_image_prefix='registry-mirror.domain.com/openshift3/'
 template_service_broker_prefix='registry-mirror.domain.com/openshift3/ose-'
 
 #######################################################
-# REGISTRY STORAGE
+# REGISTRY STORAGE - NFS example
 #######################################################
-openshift_hosted_registry_storage_kind=nfs
-openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
-openshift_hosted_registry_storage_nfs_directory=/srv/ocpnfs
-openshift_hosted_registry_storage_nfs_options='*(rw,root_squash)'
-openshift_hosted_registry_storage_volume_name=registry
-openshift_hosted_registry_storage_volume_size=10Gi
-
-
+#openshift_hosted_registry_storage_kind=nfs
+#openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
+#openshift_hosted_registry_storage_nfs_directory=/srv/ocpnfs
+#openshift_hosted_registry_storage_nfs_options='*(rw,root_squash)'
+#openshift_hosted_registry_storage_volume_name=registry
+#openshift_hosted_registry_storage_volume_size=10Gi
 
 #######################################################
 # -- Node Groups Customization
@@ -136,7 +134,8 @@ ansible_service_broker_install=false
 #######################################################
 # -- Configuring Cluster Monitoring
 #######################################################
-openshift_cluster_monitoring_operator_install=false
+openshift_cluster_monitoring_operator_install=true
+XXXXXXX
 
 #######################################################
 # -- Configuring Cluster Metrics - OCS Storage
@@ -219,15 +218,15 @@ openshift_storage_glusterfs_namespace=app-storage
 openshift_storage_glusterfs_storageclass=true
 openshift_storage_glusterfs_storageclass_default=false
 
-openshift_storage_glusterfs_block_image=registry.access.redhat.com/rhgs3/rhgsgluster-block-prov-rhel7:v3.11.3
-openshift_storage_glusterfs_heketi_image=registry.access.redhat.com/rhgs3/rhgsvolmanager-rhel7:v3.11.3
-openshift_storage_glusterfs_s3_server_image=registry.access.redhat.com/rhgs3/rhgss3-server-rhel7:v3.11.3
+openshift_storage_glusterfs_block_image=registry-mirror.domain.com/rhgs3/rhgsgluster-block-prov-rhel7:v3.11.3
+openshift_storage_glusterfs_heketi_image=registry-mirror.domain.com/rhgs3/rhgsvolmanager-rhel7:v3.11.3
+openshift_storage_glusterfs_s3_server_image=registry-mirror.domain.com/rhgs3/rhgss3-server-rhel7:v3.11.3
 
 openshift_storage_glusterfs_heketi_is_native=true
 openshift_storage_glusterfs_heketi_executor=ssh
 openshift_storage_glusterfs_heketi_ssh_port=22
-openshift_storage_glusterfs_heketi_ssh_user=root
-openshift_storage_glusterfs_heketi_ssh_sudo=false
+openshift_storage_glusterfs_heketi_ssh_user=user
+openshift_storage_glusterfs_heketi_ssh_sudo=true
 openshift_storage_glusterfs_heketi_ssh_keyfile="/tmp/id_rsa"
 
 openshift_storage_glusterfs_block_deploy=true
