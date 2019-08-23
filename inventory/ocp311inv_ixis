@@ -12,12 +12,13 @@ glusterfs
 #######################################################
 # -- Ansible configuration
 #######################################################
-debug_level: 2
+debug_level=2
 ansible_connection=ssh
 ansible_port=22
 ansible_user=openshift
 ansible_become=true
-openshift_release: v3.11
+openshift_release=v3.11
+openshift_image_tag=v3.11.135
 
 #######################################################
 # -- Installation configuration
