@@ -35,11 +35,29 @@ openshift_docker_additional_registries='registry-mirror.intranatixis.com'
 openshift_docker_blocked_registries='registry.access.redhat.com,docker.io'
 
 #######################################################
-# -- Registry Image Location
+# -- Cluster configuration
 #######################################################
-oreg_url="registry-mirror.intranatixis.com/openshift3/ose-${component}:${version}"
+openshift_master_cluster_method=native 
+openshift_master_cluster_hostname=console.poc-nsxt-ocp.intranatixis.com
+openshift_master_cluster_public_hostname=console.poc-nsxt-ocp.intranatixis.com
+openshift_master_default_subdomain=poc-nsxt-ocp.intranatixis.com
+openshift_master_api_port=443
+openshift_master_console_port=443
+openshift_hostname_check=false
+osm_default_node_selector='node-role.kubernetes.io/compute=true'
+
+#######################################################
+# -- Registry setup & Image Location
+#######################################################
+openshift_hosted_manage_registry=true
+openshift_hosted_manage_registry_console=true
+openshift_registry_selector='node-role.kubernetes.io/infra=true'
+openshift_hosted_registry_replicas=3
+
+oreg_url='registry-mirror.intranatixis.com/openshift3/ose-${component}:${version}'
 oreg_auth_user='rh-gs-lpioro'
 oreg_auth_password='LPrh1234$'
+
 # If you use an image registry other than the default at registry.redhat.io
 openshift_examples_modify_imagestreams=true
 
@@ -51,18 +69,17 @@ openshift_cockpit_deployer_image='registry-mirror.intranatixis.com/openshift3/'
 openshift_logging_image_prefix='registry-mirror.intranatixis.com/openshift3/'
 template_service_broker_prefix='registry-mirror.intranatixis.com/openshift3/ose-'
 
+#######################################################
+# REGISTRY STORAGE
+#######################################################
+openshift_hosted_registry_storage_kind=nfs
+openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
+openshift_hosted_registry_storage_nfs_directory=/srv/ocpnfs
+openshift_hosted_registry_storage_nfs_options='*(rw,root_squash)'
+openshift_hosted_registry_storage_volume_name=registry
+openshift_hosted_registry_storage_volume_size=10Gi
 
-#######################################################
-# -- Cluster configuration
-#######################################################
-openshift_master_cluster_method=native 
-openshift_master_cluster_hostname=console.poc-nsxt-ocp.intranatixis.com
-openshift_master_cluster_public_hostname=console.poc-nsxt-ocp.intranatixis.com
-openshift_master_default_subdomain=poc-nsxt-ocp.intranatixis.com
-openshift_master_api_port=443
-openshift_master_console_port=443
-openshift_hostname_check=false
-osm_default_node_selector='node-role.kubernetes.io/compute=true'
+
 
 #######################################################
 # -- Node Groups Customization
@@ -88,22 +105,10 @@ openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 
 openshift_master_htpasswd_users={ 'ocpadmin': '$apr1$6ZcUobF7$ZeFlZIoxSOjNrXiFZBhus1' }
 
 #######################################################
-# -- Deploy Default ROUTER REGISTRY & Default Selector
+# -- Deploy Default ROUTER 
 #######################################################
 openshift_hosted_manage_router=true
 openshift_router_selector='node-role.kubernetes.io/infra=true'
-openshift_hosted_manage_registry=true
-openshift_registry_selector='node-role.kubernetes.io/infra=true'
-
-#######################################################
-# REGISTRY STORAGE
-#######################################################
-openshift_hosted_registry_storage_kind=nfs
-openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
-openshift_hosted_registry_storage_nfs_directory=/srv/ocpnfs
-openshift_hosted_registry_storage_nfs_options='*(rw,root_squash)'
-openshift_hosted_registry_storage_volume_name=registry
-openshift_hosted_registry_storage_volume_size=10Gi
 
 #######################################################
 # SDN 
