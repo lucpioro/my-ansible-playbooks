@@ -31,8 +31,8 @@ openshift_enable_unsupported_configurations=True
 #######################################################
 # -- Docker setup
 #######################################################
-openshift_docker_additional_registries="registry-mirror.intranatixis.com"
-openshift_docker_blocked_registries="registry.access.redhat.com,docker.io"
+openshift_docker_additional_registries='registry-mirror.intranatixis.com'
+openshift_docker_blocked_registries='registry.access.redhat.com,docker.io'
 
 #######################################################
 # -- Registry Image Location
@@ -43,24 +43,25 @@ oreg_auth_password='LPrh1234$'
 # If you use an image registry other than the default at registry.redhat.io
 openshift_examples_modify_imagestreams=true
 
-osm_etcd_image="registry-mirror.intranatixis.com/rhel7/etcd:3.2.22"
-ansible_service_broker_registry_url="registry-mirror.intranatixis.com"
-openshift_service_catalog_image_prefix="registry-mirror.intranatixis.com/openshift3/ose-"
-openshift_web_console_prefix="registry-mirror.intranatixis.com/openshift3/ose-"
-openshift_cockpit_deployer_image="registry-mirror.intranatixis.com/openshift3/"
-openshift_logging_image_prefix="registry-mirror.intranatixis.com/openshift3/"
-template_service_broker_prefix="registry-mirror.intranatixis.com/openshift3/ose-"
+osm_etcd_image='registry-mirror.intranatixis.com/rhel7/etcd:3.2.22'
+ansible_service_broker_registry_url='registry-mirror.intranatixis.com'
+openshift_service_catalog_image_prefix='registry-mirror.intranatixis.com/openshift3/ose-'
+openshift_web_console_prefix='registry-mirror.intranatixis.com/openshift3/ose-'
+openshift_cockpit_deployer_image='registry-mirror.intranatixis.com/openshift3/'
+openshift_logging_image_prefix='registry-mirror.intranatixis.com/openshift3/'
+template_service_broker_prefix='registry-mirror.intranatixis.com/openshift3/ose-'
 
 
 #######################################################
 # -- Cluster configuration
 #######################################################
 openshift_master_cluster_method=native 
-openshift_master_cluster_hostname=openshift.bizotdc.tech
-openshift_master_cluster_public_hostname=openshift.bizotdc.tech
-openshift_master_default_subdomain=apps.bizotdc.tech
+openshift_master_cluster_hostname=console.poc-nsxt-ocp.intranatixis.com
+openshift_master_cluster_public_hostname=console.poc-nsxt-ocp.intranatixis.com
+openshift_master_default_subdomain=poc-nsxt-ocp.intranatixis.com
 openshift_master_api_port=443
 openshift_master_console_port=443
+openshift_hostname_check=false
 osm_default_node_selector='node-role.kubernetes.io/compute=true'
 
 #######################################################
@@ -73,6 +74,12 @@ osm_default_node_selector='node-role.kubernetes.io/compute=true'
 # -- Make sure NTP is enabled
 #######################################################
 openshift_clock_enabled=true
+
+#######################################################
+# -- Cockpit
+#######################################################
+osm_use_cockpit=true
+osm_cockpit_plugins=['cockpit-kubernetes']
 
 #######################################################
 # -- HTPasswd authentication
