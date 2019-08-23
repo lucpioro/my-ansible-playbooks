@@ -2,6 +2,11 @@ Independent mode provides dynamically provisioned storage, statically provisione
 support, and RWX support. Further, it provides full support for OpenShift Container Platform
 infrastructure services like logging, metrics, and registry services.
 
+
+https://github.com/openshift/openshift-ansible/tree/release-3.11/roles/openshift_storage_glusterfs
+https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/3.4/html-single/administration_guide/index#Installing_Native_Client
+  
+
 For supported versions of OpenShift Container Platform with Red Hat Gluster Storage Server and
 Container-Native Storage, 
 
@@ -41,8 +46,7 @@ All OpenShift nodes on Red Hat Enterprise Linux systems must have glusterfs-clie
   The client RPMsmust have the same version as the gluster-rhgs-server version. 
   The gluster-rhgs-server version is based on the selected OCS version.
   
-  https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/3.4/html-single/administration_guide/index#Installing_Native_Client
-  
+
 Minimum Red Hat Openshift Container Storage cluster size (4): It is recommended to have a
 minimum of 4 nodes in the Red Hat Openshift Container Storage cluster to adequately meet
 high-availability requirements. Although 3 nodes are required to create a persistent volume
@@ -68,9 +72,6 @@ It is recommended to create a separate /var partition that is large enough (50GB
 # yum install redhat-storage-server
 # yum install gluster-block
 
-# firewall-cmd --zone=zone_name --add-port=24010/tcp --add-port=3260/tcp --add-port=111/tcp --add-port=22/tcp --add-port=24007/tcp --add-port=24008/tcp --add-port=49152-49664/tcp
-# firewall-cmd --zone=zone_name --add-port=24010/tcp --add-port=3260/tcp --add-port=111/tcp --add-port=22/tcp --add-port=24007/tcp --add-port=24008/tcp --add-port=49152-49664/tcp --
-permanent
 
 Port 24010 and 3260 are for gluster-blockd and iSCSI targets respectively.
 
@@ -84,6 +85,7 @@ Red Hat Gluster Storage nodes.
             target_core_user
 
             # lsmod | grep dm_thin_pool
+            
             # lsmod | grep target_core_user
 
 
