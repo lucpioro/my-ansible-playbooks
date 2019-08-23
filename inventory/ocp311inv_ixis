@@ -163,6 +163,11 @@ openshift_logging_curator_default_days=7
 # -- OCS Storage - Independant Mode
 #######################################################
 openshift_storage_glusterfs_is_native=false
+
+openshift_storage_glusterfs_block_image=registry.access.redhat.com/rhgs3/rhgsgluster-block-prov-rhel7:v3.11.3
+openshift_storage_glusterfs_heketi_image=registry.access.redhat.com/rhgs3/rhgsvolmanager-rhel7:v3.11.3
+openshift_storage_glusterfs_s3_server_image=registry.access.redhat.com/rhgs3/rhgss3-server-rhel7:v3.11.3
+
 openshift_storage_glusterfs_heketi_is_native=true
 openshift_storage_glusterfs_heketi_executor=ssh
 openshift_storage_glusterfs_heketi_ssh_port=22
@@ -208,7 +213,7 @@ sltifrflga002.DOMAIN openshift_node_group_name='node-config-compute'
 sltifrflga003.DOMAIN openshift_node_group_name='node-config-compute'
 
 [glusterfs]
-sltifrflgg000
-sltifrflgg001
-sltifrflgga00
+gluster1.example.com glusterfs_zone=1 glusterfs_ip=192.168.10.11 glusterfs_devices='["/dev/xvdc", "/dev/xvdd" ]'
+gluster2.example.com glusterfs_zone=2 glusterfs_ip=192.168.10.12 glusterfs_devices='["/dev/xvdc", "/dev/xvdd" ]'
+gluster3.example.com glusterfs_zone=3 glusterfs_ip=192.168.10.13 glusterfs_devices='["/dev/xvdc", "/dev/xvdd" ]'
 
