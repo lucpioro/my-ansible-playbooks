@@ -32,8 +32,8 @@ openshift_enable_unsupported_configurations=True
 # -- Registry Image Location
 #######################################################
 oreg_url=registry.redhat.io/openshift3/ose-${component}:${version}
-oreg_auth_user='rh-gs-lpioro'
-oreg_auth_password='LPrh1234$'
+oreg_auth_user='RHN ID'
+oreg_auth_password='RHN PWD'
 # If you use an image registry other than the default at registry.redhat.io
 #openshift_examples_modify_imagestreams=true
 
@@ -100,7 +100,7 @@ ansible_service_broker_install=false
 # -- Operator Lifecycle Manager
 #######################################################
 openshift_enable_olm=true
-#openshift_additional_registry_credentials=[{'host':'registry.connect.redhat.com','user':'rh-gs-lpioro','password':'LPrh1234$','test_image':'couchbase/operator:latest'}]
+#openshift_additional_registry_credentials=[{'host':'registry.connect.redhat.com','user':'RHN ID','password':'RHN PWD','test_image':'couchbase/operator:latest'}]
 
 #######################################################
 # -- OCS Storage - Independant Mode
