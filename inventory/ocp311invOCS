@@ -105,19 +105,27 @@ openshift_enable_olm=true
 #######################################################
 # -- OCS Storage - Independant Mode
 #######################################################
+######################################################
+# -- OCS Storage - Independant Mode
+#######################################################
 openshift_storage_glusterfs_is_native=false
-openshift_storage_glusterfs_namespace=app-storage
+openshift_storage_glusterfs_namespace=ocs-storage
 openshift_storage_glusterfs_storageclass=true
 openshift_storage_glusterfs_storageclass_default=false
-openshift_storage_glusterfs_block_image=registry-mirror.domain.com/rhgs3/rhgsgluster-block-prov-rhel7:v3.11.3
-openshift_storage_glusterfs_heketi_image=registry-mirror.domain.com/rhgs3/rhgsvolmanager-rhel7:v3.11.3
-openshift_storage_glusterfs_s3_server_image=registry-mirror.domain.com/rhgs3/rhgss3-server-rhel7:v3.11.3
+openshift_storage_glusterfs_wipe=true
+openshift_storage_glusterfs_registry_wipe=true
+openshift_storage_glusterfs_block_image=registry.redhat.io/rhgs3/rhgs-gluster-block-prov-rhel7:v3.11.3
+openshift_storage_glusterfs_heketi_image=registry.redhat.io/rhgs3/rhgs-volmanager-rhel7:v3.11.3
+openshift_storage_glusterfs_s3_server_image=registry.redhat.io/rhgs3/rhgs-s3-server-rhel7:v3.11.3
+openshift_storage_glusterfs_image=registry.redhat.io/rhgs3/rhgs-server-rhel7:v3.11.3
 openshift_storage_glusterfs_heketi_is_native=true
 openshift_storage_glusterfs_heketi_executor=ssh
 openshift_storage_glusterfs_heketi_ssh_port=22
-openshift_storage_glusterfs_heketi_ssh_user=root
-openshift_storage_glusterfs_heketi_ssh_sudo=false
-openshift_storage_glusterfs_heketi_ssh_keyfile="/root/.ssh/id_rsa"
+openshift_storage_glusterfs_heketi_ssh_user=ocpadmin
+openshift_storage_glusterfs_heketi_ssh_sudo=true
+openshift_storage_glusterfs_heketi_ssh_keyfile="/home/ocpadmin/.ssh/id_rsa"
+#openshift_storage_glusterfs_heketi_admin_key=lqVFTnpQdWzgwtzQTZWzVnrxwKWDfykcAC5yY991S5A=
+#openshift_storage_glusterfs_heketi_user_key=tyAhSKnq7ztKkl5PnBiREm6g8GWW/VrSiq6662xntqw=
 openshift_storage_glusterfs_block_deploy=true
 openshift_storage_glusterfs_block_host_vol_create=true
 openshift_storage_glusterfs_block_host_vol_size=100
