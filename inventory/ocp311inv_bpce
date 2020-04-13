@@ -32,8 +32,8 @@ openshift_enable_unsupported_configurations=True
 # -- Registry Image Location
 #######################################################
 oreg_url=registry.redhat.io/openshift3/ose-${component}:${version}
-oreg_auth_user='rh-gs-lpioro'
-oreg_auth_password='LPrh1234$'
+oreg_auth_user='<RHN ID>'
+oreg_auth_password='<PWD>'
 # If you use an image registry other than the default at registry.redhat.io
 #openshift_examples_modify_imagestreams=true
 
